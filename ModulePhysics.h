@@ -52,7 +52,7 @@ public:
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
 
-	int Gravity(float m1, float m2, int x1, int x2, int y1, int y2);
+	int Gravity(float m1, float m2, b2Body* body1, b2Body* body2);
 
 private:
 

@@ -370,12 +370,17 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 		physB->listener->OnCollision(physB, physA);
 }
 
-int ModulePhysics::Gravity(float m1, float m2, int x1, int x2, int y1, int y2)
+int ModulePhysics::Gravity(float m1, float m2, b2Body* body1, b2Body* body2)
 {
-	float radio = pow(x1 - x2, 2) + pow(y1 - y2, 2);
+	b2Vec2 pos1 = body1->GetPosition();
+	b2Vec2 pos2 = body2->GetPosition();
+
+	float radio = powf(pos1.x - pos2.x, 2.0) + powf(pos1.y - pos2.y, 2.0);
 	//rº2 = (x1 - x2)º2 + (y1 - y2)º2
 
-	gravity = G * (((m1 * m2)/(radio)) * sqrt(radio));
+	gravity = G * (((m1 * m2) / (radio)) * sqrtf(radio));
 
 	return gravity;
 }
+
+// (G * (m * M) / r2) = (m * ac) = ((m * vo2) / r) ---> vo2 = (G * M) / r ---> vo = sqrt((G * M) / r)
