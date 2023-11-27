@@ -75,7 +75,7 @@ update_status ModuleSceneIntro::Update(){
 			circles.at(i, circleBody);
 
 			b2Vec2 CPos = circleBody->body->GetWorldCenter();
-			int CMass = circleBody->body->GetMass();
+			float CMass = circleBody->body->GetMass();
 
 
 			for (int j = i+1; j < circles.count(); j++) 
@@ -84,7 +84,7 @@ update_status ModuleSceneIntro::Update(){
 				circles.at(j, circleBody2);
 
 				b2Vec2 CPos2 = circleBody2->body->GetWorldCenter();
-				int CMass2 = circleBody2->body->GetMass();
+				float CMass2 = circleBody2->body->GetMass();
 
 				b2Vec2 force = App->physics->Gravity(CMass, CMass2, circleBody->body, circleBody2->body);
 				circleBody->body->ApplyForce(force, CPos, true);
