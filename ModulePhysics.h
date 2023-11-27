@@ -50,6 +50,8 @@ public:
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
 
+	int Gravity(float m1, float m2, int x1, int x2, int y1, int y2);
+
 private:
 
 	bool debug;

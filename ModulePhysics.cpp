@@ -369,3 +369,12 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	if(physB && physB->listener != NULL)
 		physB->listener->OnCollision(physB, physA);
 }
+
+int ModulePhysics::Gravity(float m1, float m2, int x1, int x2, int y1, int y2)
+{
+	float gravity;
+
+	//rº2 = (x1 - x2)º2 + (y1 - y2)º2
+
+	return gravity;
+}
