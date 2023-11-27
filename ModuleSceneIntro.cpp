@@ -32,6 +32,7 @@ bool ModuleSceneIntro::Start()
 
 	/*sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);*/
 	circles.add(App->physics->CreateCircle(SCREEN_WIDTH/ 2,SCREEN_HEIGHT/2, 200));
+	circles.getFirst()->data->body->SetGravityScale(0);
 	return ret;
 }
 
@@ -43,21 +44,18 @@ bool ModuleSceneIntro::CleanUp()
 	return true;
 }
 
-// Update: draw background
-update_status ModuleSceneIntro::Update()
-{
-	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
+update_status ModuleSceneIntro::Update(){
+
+
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
 		circles.getLast()->data->listener = this;
 		circles.getLast()->data->body->SetGravityScale(0);
 	}
 
-	// Prepare for raycast ------------------------------------------------------
-	
-
-	// All draw functions ------------------------------------------------------
 	p2List_item<PhysBody*>* c = circles.getFirst();
+
 
 	while(c != NULL)
 	{
@@ -70,6 +68,33 @@ update_status ModuleSceneIntro::Update()
 
 	circles.getFirst()->data->body->SetTransform(b2Vec2(PIXEL_TO_METERS(SCREEN_WIDTH / 2), PIXEL_TO_METERS (SCREEN_HEIGHT / 2)), 0);
 
+	if (circles.count() > 1) {
+		for (int i = 0; i < circles.count(); i++)
+		{
+			PhysBody* circleBody;
+			circles.at(i, circleBody);
+
+			b2Vec2 CPos = circleBody->body->GetWorldCenter();
+			int CMass = circleBody->body->GetMass();
+
+
+			for (int j = i+1; j < circles.count(); j++) 
+			{
+				PhysBody* circleBody2;
+				circles.at(j, circleBody2);
+
+				b2Vec2 CPos2 = circleBody2->body->GetWorldCenter();
+				int CMass2 = circleBody2->body->GetMass();
+
+				b2Vec2 force = App->physics->Gravity(CMass, CMass2, circleBody->body, circleBody2->body);
+				circleBody->body->ApplyForce(force, CPos, true);
+				circleBody2->body->ApplyForce(-force, CPos2, true);
+
+			}
+
+
+		}
+	}
 
 	return UPDATE_CONTINUE;
 }

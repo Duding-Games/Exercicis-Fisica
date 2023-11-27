@@ -52,7 +52,7 @@ public:
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
 
-	int Gravity(float m1, float m2, b2Body* body1, b2Body* body2);
+	b2Vec2 Gravity(float m1, float m2, b2Body* body1, b2Body* body2);
 
 private:
 
@@ -60,5 +60,6 @@ private:
 	b2World* world;
 	b2MouseJoint* mouse_joint;
 	b2Body* ground;
+	b2Body* mouse_body;
 	float gravity = 0;
 };
