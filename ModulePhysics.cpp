@@ -372,9 +372,10 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 int ModulePhysics::Gravity(float m1, float m2, int x1, int x2, int y1, int y2)
 {
-	float gravity;
-
+	float radio = pow(x1 - x2, 2) + pow(y1 - y2, 2);
 	//rº2 = (x1 - x2)º2 + (y1 - y2)º2
+
+	gravity = G * (((m1 * m2)/(radio)) * sqrt(radio));
 
 	return gravity;
 }
