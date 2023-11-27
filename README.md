@@ -1,1 +1,1 @@
-# Exercicis-F-sica
+# Exercicis-Fisica
