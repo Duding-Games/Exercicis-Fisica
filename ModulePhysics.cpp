@@ -36,7 +36,7 @@ bool ModulePhysics::Start()
 	ground = world->CreateBody(&bd);
 
 	// big static circle as "ground" in the middle of the screen
-	int x = SCREEN_WIDTH / 2;
+	/*int x = SCREEN_WIDTH / 2;
 	int y = SCREEN_HEIGHT / 1.5f;
 	int diameter = SCREEN_WIDTH / 2;
 
@@ -51,7 +51,7 @@ bool ModulePhysics::Start()
 
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
-	big_ball->CreateFixture(&fixture);
+	big_ball->CreateFixture(&fixture);*/
 
 	return true;
 }
@@ -368,4 +368,13 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 	if(physB && physB->listener != NULL)
 		physB->listener->OnCollision(physB, physA);
+}
+
+int ModulePhysics::Gravity(float m1, float m2, int x1, int x2, int y1, int y2)
+{
+	float gravity;
+
+	//rº2 = (x1 - x2)º2 + (y1 - y2)º2
+
+	return gravity;
 }
