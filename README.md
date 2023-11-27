@@ -1,0 +1,1 @@
+# Exercicis-F-sica
