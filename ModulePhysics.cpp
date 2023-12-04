@@ -458,7 +458,7 @@ b2Vec2 ModulePhysics::OrbitalVelocity(float m1, b2Body* body1, b2Body* body2)
 	b2Vec2 dist = pos2 - pos1;
 
 	// (G * (m * M) / r2) = (m * ac) = ((m * vo2) / r) ---> vo2 = (G * M) / r ---> vo = sqrt((G * M) / r)
-	vel = sqrt((G * m1) / radio);
+	vel = sqrt((G * m1) / sqrt(radio));
 
 	return vel * dist;
 }

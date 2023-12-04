@@ -33,6 +33,24 @@ bool ModuleSceneIntro::Start()
 	/*sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);*/
 	circles.add(App->physics->CreateCircle(SCREEN_WIDTH/ 2,SCREEN_HEIGHT/2, 200));
 	circles.getFirst()->data->body->SetGravityScale(0);
+
+	if (orbita) {
+		b2Vec2 force;
+		force.x = 300;
+		force.y = 0;
+		circles.add(App->physics->CreateCircle(500, 10, 25));
+		circles.getLast()->data->listener = this;
+		circles.getLast()->data->body->SetGravityScale(0);
+		b2Vec2 CPoss = circles.getLast()->data->body->GetWorldCenter();
+		circles.getLast()->data->body->ApplyForce(force, CPoss, true);
+
+		
+		circles.add(App->physics->CreateCircle(500, 20, 5));
+		circles.getLast()->data->listener = this;
+		circles.getLast()->data->body->SetGravityScale(0);
+		
+	}
+
 	return ret;
 }
 
@@ -45,8 +63,6 @@ bool ModuleSceneIntro::CleanUp()
 }
 
 update_status ModuleSceneIntro::Update(){
-
-
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
@@ -89,9 +105,8 @@ update_status ModuleSceneIntro::Update(){
 				b2Vec2 force = App->physics->Gravity(CMass, CMass2, circleBody->body, circleBody2->body);
 				circleBody->body->ApplyForce(force, CPos, true);
 				circleBody2->body->ApplyForce(-force, CPos2, true);
+				
 
-				b2Vec2 force2 = App->physics->OrbitalVelocity(CMass, circleBody->body, circleBody2->body);
-				circleBody->body->ApplyForce(force2, CPos, true);
 
 			}
 
