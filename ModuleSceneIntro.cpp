@@ -36,19 +36,21 @@ bool ModuleSceneIntro::Start()
 
 	if (orbita) {
 		b2Vec2 force;
-		force.x = 300;
+		force.x = 700;
 		force.y = 0;
-		circles.add(App->physics->CreateCircle(500, 10, 25));
+		circles.add(App->physics->CreateCircle(500, 20, 25));
 		circles.getLast()->data->listener = this;
 		circles.getLast()->data->body->SetGravityScale(0);
 		b2Vec2 CPoss = circles.getLast()->data->body->GetWorldCenter();
 		circles.getLast()->data->body->ApplyForce(force, CPoss, true);
 
-		
-		circles.add(App->physics->CreateCircle(500, 20, 5));
+		b2Vec2 force2;
+		force2.x = 30;
+		force2.y = 5;
+		circles.add(App->physics->CreateCircle(470, 10, 5));
 		circles.getLast()->data->listener = this;
 		circles.getLast()->data->body->SetGravityScale(0);
-		
+		circles.getLast()->data->body->ApplyForce(force2, CPoss, true);
 	}
 
 	return ret;
