@@ -448,4 +448,17 @@ b2Vec2 ModulePhysics::Gravity(float m1, float m2, b2Body* body1, b2Body* body2)
 	return gravity * dist;
 }
 
-// (G * (m * M) / r2) = (m * ac) = ((m * vo2) / r) ---> vo2 = (G * M) / r ---> vo = sqrt((G * M) / r)
+b2Vec2 ModulePhysics::OrbitalVelocity(float m1, b2Body* body1, b2Body* body2)
+{
+	b2Vec2 pos1 = body1->GetPosition();
+	b2Vec2 pos2 = body2->GetPosition();
+	float radioX = powf(pos1.x - pos2.x, 2.0);
+	float radioY = powf(pos1.y - pos2.y, 2.0);
+	float radio = powf(pos1.x - pos2.x, 2.0) + powf(pos1.y - pos2.y, 2.0);
+	b2Vec2 dist = pos2 - pos1;
+
+	// (G * (m * M) / r2) = (m * ac) = ((m * vo2) / r) ---> vo2 = (G * M) / r ---> vo = sqrt((G * M) / r)
+	vel = sqrt((G * m1) / radio);
+
+	return vel * dist;
+}

@@ -53,6 +53,7 @@ public:
 	void BeginContact(b2Contact* contact);
 
 	b2Vec2 Gravity(float m1, float m2, b2Body* body1, b2Body* body2);
+	b2Vec2 OrbitalVelocity(float m1, b2Body* body1, b2Body* body2);
 
 private:
 
@@ -62,4 +63,5 @@ private:
 	b2Body* ground;
 	b2Body* mouse_body;
 	float gravity = 0;
+	float vel = 0;
 };

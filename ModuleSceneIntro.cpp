@@ -90,6 +90,9 @@ update_status ModuleSceneIntro::Update(){
 				circleBody->body->ApplyForce(force, CPos, true);
 				circleBody2->body->ApplyForce(-force, CPos2, true);
 
+				b2Vec2 force2 = App->physics->OrbitalVelocity(CMass, circleBody->body, circleBody2->body);
+				circleBody->body->ApplyForce(force2, CPos, true);
+
 			}
 
 
